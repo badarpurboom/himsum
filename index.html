@@ -196,17 +196,8 @@
         .step-title { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
         .step-desc { color: var(--text-dim); font-size: 13px; line-height: 1.6; }
 
-        /* BEFORE/AFTER */
-        .ba-section { padding: 80px 5%; }
-        .comparison-slider { position: relative; width: 100%; max-width: 860px; height: 460px; overflow: hidden; border-radius: 28px; border: 1px solid var(--border); margin: 0 auto; box-shadow: var(--shadow-lg); cursor: col-resize; touch-action: none; user-select: none; }
-        .comparison-slider img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; display: block; }
-        .before-img { position: absolute; top: 0; left: 0; z-index: 1; }
-        .after-layer { position: absolute; top: 0; left: 0; height: 100%; width: 50%; overflow: hidden; z-index: 2; }
-        .after-layer img { position: absolute; top: 0; left: 0; }
-        .slider-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--gold); transform: translateX(-50%); z-index: 10; }
-        .slider-pill { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 42px; height: 42px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,.4); }
-        .ba-labels { display: flex; justify-content: space-between; padding: 0 32px; max-width: 760px; margin: 14px auto 0; }
-        .ba-label { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
+        .transformation-img-wrap { width: 100%; max-width: 860px; margin: 0 auto; border-radius: 28px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-lg); }
+        .transformation-img { width: 100%; height: auto; display: block; }
 
         /* TESTIMONIALS */
         .testimonials { padding: 80px 0; background: var(--section-alt); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -597,27 +588,15 @@
     </div>
 </section>
 
-<!-- BEFORE/AFTER -->
+<!-- TRANSFORMATION IMAGE -->
 <section class="ba-section">
     <div class="section-head reveal">
         <div class="section-label">// transformation</div>
         <h2 class="section-title">देखें असली बदलाव</h2>
         <div class="section-divider"></div>
     </div>
-    <div class="comparison-slider" id="slider-container">
-        <div class="after-layer" id="after-layer">
-            <img src="after.png" alt="After" id="after-img">
-        </div>
-        <img src="before.png" alt="Before" class="before-img">
-        <div class="slider-handle" id="slider-handle">
-            <div class="slider-pill">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a6010" stroke-width="2.5"><path d="m18 8 4 4-4 4"/><path d="m6 8-4 4 4 4"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-            </div>
-        </div>
-    </div>
-    <div class="ba-labels">
-        <span class="ba-label" style="color:var(--text-dim)">← पहले</span>
-        <span class="ba-label" style="color:var(--gold)">बाद में →</span>
+    <div class="transformation-img-wrap reveal">
+        <img src="Gemini_Generated_Image_l5pcsll5pcsll5pc.png" alt="Himsum Transformation" class="transformation-img">
     </div>
 </section>
 
@@ -743,41 +722,6 @@
 </footer>
 
 <script>
-    // Comparison Slider
-    const sh = document.getElementById('slider-handle');
-    const al = document.getElementById('after-layer');
-    const sc = document.getElementById('slider-container');
-    let drag = false;
-    function upd(x) {
-        if (!sc || !al || !sh) return;
-        const r = sc.getBoundingClientRect();
-        let p = ((x - r.left) / r.width) * 100;
-        p = Math.max(0, Math.min(100, p));
-        sh.style.left = p + '%';
-        al.style.width = p + '%';
-    }
-    function startDrag(e) {
-        drag = true;
-        const x = e.touches ? e.touches[0].clientX : e.clientX;
-        upd(x);
-        if (e.cancelable) e.preventDefault();
-    }
-    function moveDrag(e) {
-        if (!drag) return;
-        const x = e.touches ? e.touches[0].clientX : e.clientX;
-        upd(x);
-        if (e.cancelable) e.preventDefault();
-    }
-    function endDrag() { drag = false; }
-    if (sc) {
-        sc.addEventListener('mousedown', startDrag);
-        window.addEventListener('mousemove', moveDrag);
-        window.addEventListener('mouseup', endDrag);
-        sc.addEventListener('touchstart', startDrag, { passive: false });
-        sc.addEventListener('touchmove', moveDrag, { passive: false });
-        window.addEventListener('touchend', endDrag);
-    }
-
     // Timer (3 minutes countdown, auto-restart)
     const ut = document.getElementById('urgency-timer');
     const ot = document.getElementById('offer-timer');
